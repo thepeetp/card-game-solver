@@ -179,7 +179,7 @@ class PossibleMoveFinder(private val game: FreeCellGame) {
 
     private fun calculateTableauToTableauPriority(sourceCard: TableauCardPosition, destinationColumn: List<Card>): Int {
         if (isFoundationTableau(sourceCard.cardValue, destinationColumn)) {
-            return -300
+            return -300 * sourceCard.numberOfCard
         } else if (destinationColumn.isEmpty() && maxStackMove() == sourceCard.numberOfCard) {
             return -100
         } else if (destinationColumn.isEmpty()) {
@@ -194,7 +194,7 @@ class PossibleMoveFinder(private val game: FreeCellGame) {
         if (isFoundationTableau(freeCellCard, column)) {
             return -200
         } else if (column.isEmpty()) {
-            return 20
+            return CardRank.values().size - freeCellCard.rank.ordinal
         } else {
             return 10
         }
