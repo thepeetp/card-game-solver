@@ -17,6 +17,14 @@ class FreeCellToHomeCellMove(private val index: Int, private val card: Card, pri
         return priority
     }
 
+    override fun getMoveCode(): Int {
+        return hashCode()
+    }
+
+    override fun nextForbidMoveCode(): Int {
+        return 0
+    }
+
     override fun toString(): String {
         return "Deposit $card to HomeCell"
     }

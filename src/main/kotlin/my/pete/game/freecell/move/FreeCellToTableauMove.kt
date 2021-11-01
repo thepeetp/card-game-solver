@@ -20,6 +20,14 @@ class FreeCellToTableauMove(
         return priority
     }
 
+    override fun getMoveCode(): Int {
+        return "ft${freeCellIndex}${columnIndex}".hashCode()
+    }
+
+    override fun nextForbidMoveCode(): Int {
+        return "tf${columnIndex}${freeCellIndex}".hashCode()
+    }
+
     override fun toString(): String {
         return "Move FreeCell from column [${freeCellIndex + 1}] to Tableau column [${columnIndex + 1}]"
     }

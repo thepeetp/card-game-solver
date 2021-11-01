@@ -13,6 +13,14 @@ class TableauToHomeCellMove(private val columnIndex: Int, private val card: Card
         return priority
     }
 
+    override fun getMoveCode(): Int {
+        return hashCode()
+    }
+
+    override fun nextForbidMoveCode(): Int {
+        return 0
+    }
+
     override fun toString(): String {
         return "Deposit $card HomeCell"
     }

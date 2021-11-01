@@ -16,7 +16,12 @@ class PossibleMoveFinder(private val game: FreeCellGame) {
         moveSet.addAll(findTableauToFreeCellMove())
         moveSet.addAll(findFreeCellToTableauMove())
         moveSet.addAll(findTableauToTableauMove())
-        return moveSet.sortedBy { it.getPriority() }
+        val priorityMovement = moveSet.sortedBy { it.getPriority() }
+        return if (game.movementHistory.isEmpty()) {
+            priorityMovement
+        } else {
+            priorityMovement.filter { it.getMoveCode() != game.movementHistory.last().nextForbidMoveCode() }
+        }
     }
 
     private fun findTableauToHomeCellMove(): List<FreeCellCardMove> {
@@ -62,10 +67,16 @@ class PossibleMoveFinder(private val game: FreeCellGame) {
             val moveSet = mutableListOf<FreeCellCardMove>()
             game.tableau
                 .forEachIndexed { columnIndex, cards ->
+                    val freeCellIndex = game.freeCells.indexOfFirst { it == null }
                     if (cards.isNotEmpty()) {
                         moveSet.add(
                             TableauToFreeCellMove(
-                                columnIndex, game.freeCells.indexOfFirst { it == null },
+                                columnIndex,
+                                freeCellIndex,
+                                destination = DestinationCardMove(
+                                    game.tableau[columnIndex].last(),
+                                    game.freeCells[freeCellIndex]
+                                ),
                                 calculateTableauToFreeCellPriority(columnIndex)
                             )
                         )
@@ -112,9 +123,9 @@ class PossibleMoveFinder(private val game: FreeCellGame) {
                 } else {
                     var correct = true
                     var currentCard = cards.last()
-                    var rowIndex = cardNumber
-                    while (rowIndex > 0) {
-                        val previousCard = cards[cards.size - rowIndex]
+                    var rowIndex = cards.size - 2
+                    while (rowIndex >= cards.size - cardNumber) {
+                        val previousCard = cards[rowIndex]
                         if (!canStack(currentCard, previousCard)) {
                             correct = false
                             break
@@ -124,7 +135,7 @@ class PossibleMoveFinder(private val game: FreeCellGame) {
                     }
 
                     if (correct) {
-                        cardPositions.add(TableauCardPosition(columnIndex - 1, cardNumber, currentCard))
+                        cardPositions.add(TableauCardPosition(columnIndex, cardNumber, currentCard))
                     }
                 }
             }
@@ -168,6 +179,8 @@ class PossibleMoveFinder(private val game: FreeCellGame) {
 
     private fun calculateTableauToTableauPriority(sourceCard: TableauCardPosition, destinationColumn: List<Card>): Int {
         if (isFoundationTableau(sourceCard.cardValue, destinationColumn)) {
+            return -300
+        } else if (destinationColumn.isEmpty() && maxStackMove() == sourceCard.numberOfCard) {
             return -100
         } else if (destinationColumn.isEmpty()) {
             return 30

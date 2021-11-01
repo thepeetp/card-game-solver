@@ -23,6 +23,14 @@ class TableauToTableauMove(
         return priority
     }
 
+    override fun getMoveCode(): Int {
+        return hashCode()
+    }
+
+    override fun nextForbidMoveCode(): Int {
+        return 0
+    }
+
     override fun toString(): String {
         return "Move Between Tableau ${from.cardValue} from Column[${from.columnIndex + 1}] to Column[${toColumnIndex + 1}]"
     }
