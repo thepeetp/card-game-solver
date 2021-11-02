@@ -180,8 +180,6 @@ class PossibleMoveFinder(private val game: FreeCellGame) {
     private fun calculateTableauToTableauPriority(sourceCard: TableauCardPosition, destinationColumn: List<Card>): Int {
         if (isFoundationTableau(sourceCard.cardValue, destinationColumn)) {
             return -300 * sourceCard.numberOfCard
-        } else if (destinationColumn.isEmpty() && maxStackMove() == sourceCard.numberOfCard) {
-            return -100
         } else if (destinationColumn.isEmpty()) {
             return 30
         } else {
