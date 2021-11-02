@@ -32,7 +32,7 @@ class TableauToTableauMove(
     }
 
     override fun toString(): String {
-        return "Move Between Tableau ${from.cardValue} from Column[${from.columnIndex + 1}] to Column[${toColumnIndex + 1}]"
+        return "Move ${from.numberOfCard} Card Between Tableau ${from.cardValue} from Column[${from.columnIndex + 1}] to Column[${toColumnIndex + 1}]"
     }
 
     override fun hashCode(): Int {

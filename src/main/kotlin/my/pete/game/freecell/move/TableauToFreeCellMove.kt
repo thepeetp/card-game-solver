@@ -30,7 +30,7 @@ class TableauToFreeCellMove(
     }
 
     override fun toString(): String {
-        return "Move Tableau from column ${columnIndex + 1} to Free Cell column ${freeCellIndex + 1}"
+        return "Move ${destination.from} Tableau from column ${columnIndex + 1} to Free Cell column ${freeCellIndex + 1}"
     }
 
     override fun hashCode(): Int {

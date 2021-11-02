@@ -73,7 +73,7 @@ class PossibleMoveFinder(private val game: FreeCellGame) {
                             TableauToFreeCellMove(
                                 columnIndex,
                                 freeCellIndex,
-                                destination = DestinationCardMove(
+                                DestinationCardMove(
                                     game.tableau[columnIndex].last(),
                                     game.freeCells[freeCellIndex]
                                 ),
