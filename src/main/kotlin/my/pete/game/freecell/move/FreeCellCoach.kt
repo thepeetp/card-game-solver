@@ -26,6 +26,6 @@ class FreeCellCoach(var maxScore: Int = 0) {
     }
 
     fun shouldGiveUp(game: FreeCellGame) = if (minMovement != null) {
-        game.movementHistory.size > minMovement
+        calculateScore(game) < maxScore && game.movementHistory.size > minMovement
     } else false
 }
