@@ -21,11 +21,11 @@ class FreeCellToTableauMove(
     }
 
     override fun getMoveCode(): Int {
-        return "ft${freeCellIndex}${columnIndex}".hashCode()
+        return destination.from.hashCode()
     }
 
     override fun nextForbidMoveCode(): Int {
-        return "tf${columnIndex}${freeCellIndex}".hashCode()
+        return destination.from.hashCode()
     }
 
     override fun toString(): String {

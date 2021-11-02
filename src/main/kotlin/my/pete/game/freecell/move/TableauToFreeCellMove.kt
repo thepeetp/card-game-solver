@@ -22,11 +22,11 @@ class TableauToFreeCellMove(
     }
 
     override fun getMoveCode(): Int {
-        return "tf${columnIndex}${freeCellIndex}".hashCode()
+        return destination.from.hashCode()
     }
 
     override fun nextForbidMoveCode(): Int {
-        return "ft${freeCellIndex}${columnIndex}".hashCode()
+        return destination.from.hashCode()
     }
 
     override fun toString(): String {

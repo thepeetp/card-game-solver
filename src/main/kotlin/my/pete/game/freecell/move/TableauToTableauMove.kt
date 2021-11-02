@@ -24,11 +24,11 @@ class TableauToTableauMove(
     }
 
     override fun getMoveCode(): Int {
-        return "tt${from.columnIndex}${toColumnIndex}".hashCode()
+        return destination.from.hashCode()
     }
 
     override fun nextForbidMoveCode(): Int {
-        return "tt${toColumnIndex}${from.columnIndex}".hashCode()
+        return destination.from.hashCode()
     }
 
     override fun toString(): String {

@@ -26,7 +26,7 @@ object MatchCardUtils {
         for (expectedCardImage in expectedCardImages) {
             val result = ImageComparison(ImageIO.read(expectedCardImage), actualImage).compareImages()
             val differencePercent = result.differencePercent
-            if (differencePercent < 5 && differencePercent < minDiff) {
+            if (differencePercent < 4 && differencePercent < minDiff) {
                 minDiff = differencePercent
                 val code = expectedCardImage.canonicalFile.name.removeSuffix(".png")
                 selectedCard = Card(CardRank.fromCode(code.first()), CardSuit.fromCode(code.last()))
